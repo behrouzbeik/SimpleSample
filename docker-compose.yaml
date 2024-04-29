@@ -1,0 +1,17 @@
+version: '2.17.2'
+
+services:
+  
+  simplesample:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    image: simplesample
+    container_name: simplesample
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --no-input --clear &&
+             gunicorn SimpleSample.wsgi:application --bind 0.0.0.0:8000"
+  
+  
